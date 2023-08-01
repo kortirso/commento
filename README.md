@@ -34,7 +34,7 @@ end
 
 Update you application model
 ```ruby
-class ApplicationMailer < ActionMailer::Base
+class ApplicationRecord < ActiveRecord::Base
   include Commento::Helpers
 end
 ```
