@@ -32,7 +32,7 @@ end
 
 ### Models
 
-Update you application model
+Update your application model
 ```ruby
 class ApplicationRecord < ActiveRecord::Base
   include Commento::Helpers
