@@ -13,16 +13,16 @@ module Commento
         instance.set_table_comment(table_name, value)
       end
 
-      def get_table_comment
-        instance.get_table_comment(table_name)
+      def table_comment
+        instance.table_comment(table_name)
       end
 
       def set_column_comment(column_name, value=nil)
         instance.set_column_comment(table_name, column_name, value)
       end
 
-      def get_column_comment(column_name)
-        instance.get_column_comment(table_name, column_name)
+      def column_comment(column_name)
+        instance.column_comment(table_name, column_name)
       end
 
       def instance
