@@ -17,8 +17,8 @@ module Commento
     end
 
     # Public: Returns comment for table.
-    def get_table_comment(table_name)
-      adapter.get_table_comment(table_name)
+    def table_comment(table_name)
+      adapter.table_comment(table_name)
     end
 
     # Public: Sets comment for table's column.
@@ -27,8 +27,8 @@ module Commento
     end
 
     # Public: Returns comment for table's column.
-    def get_column_comment(table_name, column_name)
-      adapter.get_column_comment(table_name, column_name)
+    def column_comment(table_name, column_name)
+      adapter.column_comment(table_name, column_name)
     end
   end
 end

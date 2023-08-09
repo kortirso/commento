@@ -23,8 +23,8 @@ module Commento
       end
 
       # Public: Returns comment for table.
-      def get_table_comment(table_name)
-        table_data = execute(get_tables_comments_sql).to_a.find { |table_data| table_data['table_name'] == table_name }
+      def table_comment(table_name)
+        table_data = execute(tables_comments_sql).to_a.find { |data| data['table_name'] == table_name }
         table_data.present? ? table_data['obj_description'] : nil
       end
 
@@ -36,28 +36,28 @@ module Commento
       end
 
       # Public: Returns comment for table's column.
-      def get_column_comment(table_name, column_name)
-        sql = get_columns_comments_sql(table_name)
-        column_data = execute(sql).to_a.find { |column_data| column_data['column_name'].to_sym == column_name }
+      def column_comment(table_name, column_name)
+        sql = columns_comments_sql(table_name)
+        column_data = execute(sql).to_a.find { |data| data['column_name'].to_sym == column_name }
         column_data.present? ? column_data['col_description'] : nil
       end
 
       private
 
-      def get_tables_comments_sql
+      def tables_comments_sql
         <<-SQL.squish
           SELECT
             tables.table_name,
             pg_catalog.obj_description(pgc.oid, 'pg_class')
           FROM information_schema.tables tables
-          INNER JOIN pg_catalog.pg_class pgc ON tables.table_name = pgc.relname 
+          INNER JOIN pg_catalog.pg_class pgc ON tables.table_name = pgc.relname
           WHERE
             tables.table_type='BASE TABLE' AND
             tables.table_schema='public'
         SQL
       end
 
-      def get_columns_comments_sql(table_name)
+      def columns_comments_sql(table_name)
         <<-SQL.squish
           SELECT
             cols.column_name,
