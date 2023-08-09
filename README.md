@@ -41,7 +41,24 @@ end
 
 ## Usage
 
-Commento provides helpers for models for setting and getting table's column comments.
+Commento provides helpers for models for setting and getting comments.
+
+### Set table's comment
+
+```ruby
+User.set_table_comment('Users table')
+```
+
+or reset comment by skiping value
+```ruby
+User.set_table_comment
+```
+
+### Read table's column comment
+
+```ruby
+User.get_table_comment
+```
 
 ### Set table's column comment
 
