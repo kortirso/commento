@@ -11,6 +11,16 @@ module Commento
       @adapter = adapter
     end
 
+    # Public: Sets comment for table.
+    def set_table_comment(table_name, value)
+      adapter.set_table_comment(table_name, value)
+    end
+
+    # Public: Returns comment for table.
+    def get_table_comment(table_name)
+      adapter.get_table_comment(table_name)
+    end
+
     # Public: Sets comment for table's column.
     def set_column_comment(table_name, column_name, value)
       adapter.set_column_comment(table_name, column_name, value)

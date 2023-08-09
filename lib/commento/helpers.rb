@@ -9,6 +9,14 @@ module Commento
     end
 
     module ClassMethods
+      def set_table_comment(value=nil)
+        instance.set_table_comment(table_name, value)
+      end
+
+      def get_table_comment
+        instance.get_table_comment(table_name)
+      end
+
       def set_column_comment(column_name, value=nil)
         instance.set_column_comment(table_name, column_name, value)
       end
