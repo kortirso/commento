@@ -1,27 +1,28 @@
-name: Ruby
+name: Main CI
 
-on:
-  push:
-    branches:
-      - main
-
-  pull_request:
+on: [push]
 
 jobs:
-  build:
+  linters:
+    name: Linters
     runs-on: ubuntu-latest
-    name: Ruby ${{ matrix.ruby }}
-    strategy:
-      matrix:
-        ruby:
-          - '3.2.0'
-
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: ${{ matrix.ruby }}
-        bundler-cache: true
-    - name: Run the default task
-      run: bundle exec rake
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2.0
+
+      - name: Install latest bundler
+        run: |
+          gem install bundler --no-document
+          bundle config set without 'tools benchmarks docs'
+
+      - name: Bundle install
+        run: bundle install --jobs 4 --retry 3
+
+      - name: Run linters
+        run: |
+          bundle exec rubocop
