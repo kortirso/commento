@@ -24,8 +24,8 @@ module Commento
         [
           "    <div class='table'>",
           "      <div class='table-header'>",
-          "        <h3>%table_name%</h3>",
-          "        <p>%table_comment%</p>",
+          '        <h3>%table_name%</h3>',
+          '        <p>%table_comment%</p>',
           '      </div>',
           "      <div class='table-body'>",
           '%columns_placeholder%',

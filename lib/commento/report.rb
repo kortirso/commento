@@ -3,7 +3,7 @@
 module Commento
   class Report
     def create_report
-      Dir.mkdir('commento') unless Dir.exist?('commento')
+      FileUtils.mkdir_p('commento')
       File.write(
         "commento/index.#{template_format}",
         main_template.gsub('%tables_placeholder%', tables_placeholder)
