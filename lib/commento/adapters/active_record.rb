@@ -8,6 +8,8 @@ module Commento
       # Public: The name of the adapter.
       attr_reader :name
 
+      SKIP_COLUMN_NAME = %w[id uuid created_at updated_at].freeze
+
       # Public: Initialize a new ActiveRecord adapter instance.
       #
       # name - The Symbol name for this adapter. Optional (default :active_record)
@@ -40,6 +42,24 @@ module Commento
         sql = columns_comments_sql(table_name)
         column_data = execute(sql).to_a.find { |data| data['column_name'].to_sym == column_name }
         column_data.present? ? column_data['col_description'] : nil
+      end
+
+      # Public: Returns comments for tables and columns.
+      def comments_for_database
+        execute(tables_comments_sql).to_a.map! do |table_data|
+          {
+            table_name: table_data['table_name'],
+            table_comment: table_data['obj_description'],
+            columns: execute(columns_comments_sql(table_data['table_name'])).to_a.filter_map do |column_data|
+              next if SKIP_COLUMN_NAME.include?(column_data['column_name'])
+
+              {
+                column_name: column_data['column_name'],
+                column_comment: column_data['col_description']
+              }
+            end
+          }
+        end
       end
 
       private

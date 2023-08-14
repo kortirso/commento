@@ -30,5 +30,10 @@ module Commento
     def column_comment(table_name, column_name)
       adapter.column_comment(table_name, column_name)
     end
+
+    # Public: Returns comments for tables and columns.
+    def comments_for_database
+      adapter.comments_for_database
+    end
   end
 end

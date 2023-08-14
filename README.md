@@ -33,10 +33,19 @@ end
 ### Models
 
 Update your application model
+
 ```ruby
 class ApplicationRecord < ActiveRecord::Base
   include Commento::Helpers
 end
+```
+
+## Generating reports
+
+You can generate different types of reports
+
+```ruby
+Commento::Reports::Html.new.create_report
 ```
 
 ## Usage
