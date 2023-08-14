@@ -6,17 +6,19 @@ require 'commento/version'
 require 'commento/configuration'
 require 'commento/dsl'
 require 'commento/helpers'
+require 'commento/report'
+require 'commento/reports/html'
 
 module Commento
   extend self
   extend Forwardable
 
-  # Public: Given an adapter returns a handy DSL to all the commentp goodness.
+  # Public: Given an adapter returns a handy DSL to all the commento goodness.
   def new(adapter)
     DSL.new(adapter)
   end
 
-  # Public: Configure commentp.
+  # Public: Configure commento.
   #
   #   Commento.configure do |config|
   #     config.adapter = Commento::Adapters::ActiveRecord.new
@@ -31,7 +33,7 @@ module Commento
     @configuration ||= Configuration.new
   end
 
-  # Public: Default per thread commentp instance if configured.
+  # Public: Default per thread commento instance if configured.
   # Returns Commento::DSL instance.
   def instance
     Thread.current[:commento_instance] ||= new(configuration.adapter)
