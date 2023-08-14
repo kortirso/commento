@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [0.1.1] - 2023-08-14
 ### Added
 - basis DSL, creating/reading comments for table columns
 - creating/reading comments for tables
