@@ -35,7 +35,18 @@ module Commento
       end
 
       def column_template
-        "        <p>%column_name%: %column_comment%</p>\n"
+        [
+          "          <div class='column-body'>",
+          '            <p>%column_name%: %column_comment%</p>',
+          "            <div class='column-data'>",
+          '%data_placeholder%',
+          '            </div>',
+          "          </div>\n"
+        ].join("\n")
+      end
+
+      def data_template
+        '            <span>%commento_data%</span>'
       end
 
       def template_format
@@ -52,6 +63,10 @@ module Commento
           '.table-header h3 { padding: .25rem; background: #bbb }',
           '.table-header p { padding: .25rem; margin: 0 }',
           '.table-body { padding: 0 .25rem }',
+          '.column-body { margin-bottom: .5rem; }',
+          '.column-body p { margin: 0 }',
+          '.column-data { display: flex; flex-direction: column; margin: .5rem 0 }',
+          '.column-data span { font-style: italic; padding-left: 1rem }',
           '</style>'
         ].join
       end
