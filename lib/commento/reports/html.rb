@@ -36,12 +36,12 @@ module Commento
 
       def column_template
         [
-          "          <div class='column-body'>",
-          '            <p>%column_name%: %column_comment%</p>',
-          "            <div class='column-data'>",
+          "        <div class='column-body'>",
+          '          <p>%column_name%: %column_comment%</p>',
+          "          <div class='column-data'>",
           '%data_placeholder%',
-          '            </div>',
-          "          </div>\n"
+          '          </div>',
+          "        </div>\n"
         ].join("\n")
       end
 
@@ -49,8 +49,8 @@ module Commento
         '            <span>%commento_data%</span>'
       end
 
-      def template_format
-        'html'
+      def file_name
+        'index.html'
       end
 
       def styles

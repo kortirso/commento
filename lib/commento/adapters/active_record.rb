@@ -8,8 +8,6 @@ module Commento
       # Public: The name of the adapter.
       attr_reader :name
 
-      SKIP_COLUMN_NAME = %w[id uuid created_at updated_at].freeze
-
       # Public: Initialize a new ActiveRecord adapter instance.
       #
       # name - The Symbol name for this adapter. Optional (default :active_record)
@@ -46,23 +44,29 @@ module Commento
 
       # Public: Returns comments for tables and columns.
       def comments_for_database
-        execute(tables_comments_sql).to_a.map! do |table_data|
-          {
-            table_name: table_data['table_name'],
-            table_comment: table_data['obj_description'],
-            columns: execute(columns_comments_sql(table_data['table_name'])).to_a.filter_map do |column_data|
-              next if SKIP_COLUMN_NAME.include?(column_data['column_name'])
+        execute(tables_comments_sql).to_a.filter_map do |table_data|
+          next if configuration.skip_table_names.include?(table_data['table_name'])
 
-              {
-                column_name: column_data['column_name'],
-                column_comment: column_data['col_description']
-              }
-            end
-          }
+          parse_data(table_data)
         end
       end
 
       private
+
+      def parse_data(table_data)
+        {
+          table_name: table_data['table_name'],
+          table_comment: table_data['obj_description'],
+          columns: execute(columns_comments_sql(table_data['table_name'])).to_a.filter_map do |column_data|
+            next if configuration.skip_column_names.include?(column_data['column_name'])
+
+            {
+              column_name: column_data['column_name'],
+              column_comment: column_data['col_description']
+            }
+          end
+        }
+      end
 
       def tables_comments_sql
         <<-SQL.squish
@@ -93,6 +97,10 @@ module Commento
 
       def execute(sql)
         ::ActiveRecord::Base.connection.execute(sql)
+      end
+
+      def configuration
+        Commento.configuration
       end
     end
   end
