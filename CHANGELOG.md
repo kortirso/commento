@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## Unreleased
+## [0.1.2] - 2023-08-16
 ### Added
 - recognizing gem's comments in project for getting columns data
 - configuring for skipping tables and columns for reports
