@@ -47,22 +47,26 @@ module Commento
         execute(tables_comments_sql).to_a.filter_map do |table_data|
           next if configuration.skip_table_names.include?(table_data['table_name'])
 
-          {
-            table_name: table_data['table_name'],
-            table_comment: table_data['obj_description'],
-            columns: execute(columns_comments_sql(table_data['table_name'])).to_a.filter_map do |column_data|
-              next if configuration.skip_column_names.include?(column_data['column_name'])
-
-              {
-                column_name: column_data['column_name'],
-                column_comment: column_data['col_description']
-              }
-            end
-          }
+          parse_data(table_data)
         end
       end
 
       private
+
+      def parse_data(table_data)
+        {
+          table_name: table_data['table_name'],
+          table_comment: table_data['obj_description'],
+          columns: execute(columns_comments_sql(table_data['table_name'])).to_a.filter_map do |column_data|
+            next if configuration.skip_column_names.include?(column_data['column_name'])
+
+            {
+              column_name: column_data['column_name'],
+              column_comment: column_data['col_description']
+            }
+          end
+        }
+      end
 
       def tables_comments_sql
         <<-SQL.squish
