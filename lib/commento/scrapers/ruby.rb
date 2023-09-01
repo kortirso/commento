@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Commento
-  module Services
-    class DataCollect
+  module Scrapers
+    class Ruby
       COMMENTO_MATCH_REGEXP = /^[ \t]*# commento:.+$/.freeze
 
       # @data contains data with next format
@@ -32,13 +32,17 @@ module Commento
         end
       end
 
+      # commento line looks like
+      # commento: fantasy_sports.points, fantasy_sports.statistics
       def iterate_filelines(lines, filename)
         lines.each.with_index(1) do |line, index|
           next unless COMMENTO_MATCH_REGEXP.match?(line)
 
-          field = line.strip.split('# commento: ')[-1]
-          @data[field] ||= []
-          @data[field] << "#{filename}:#{index}"
+          fields = line.strip.split('# commento: ')[-1].split(',').map(&:strip)
+          fields.each do |field|
+            @data[field] ||= []
+            @data[field] << "#{filename}:#{index}"
+          end
         end
       end
 

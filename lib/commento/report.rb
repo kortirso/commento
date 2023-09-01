@@ -4,12 +4,12 @@ module Commento
   class Report
     COMMENTO_FOLDER_NAME = 'commento'
 
-    def initialize(data_collect_service: Commento::Services::DataCollect)
-      @data_collect_service = data_collect_service.new
+    def initialize(data_scraper: Commento::Scrapers::Ruby.new)
+      @data_scraper = data_scraper
     end
 
     def create_report
-      @commento_data = @data_collect_service.call
+      @commento_data = @data_scraper.call
       FileUtils.mkdir_p(COMMENTO_FOLDER_NAME)
       File.write(
         "#{COMMENTO_FOLDER_NAME}/#{file_name}",
