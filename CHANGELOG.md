@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## Unreleased
+## [0.1.3] - 2023-09-01
 ### Modified
 - scraping ruby files with many attributes per line
 
