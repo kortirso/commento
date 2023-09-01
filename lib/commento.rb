@@ -8,7 +8,7 @@ require 'commento/dsl'
 require 'commento/helpers'
 require 'commento/report'
 require 'commento/reports/html'
-require 'commento/services/data_collect'
+require 'commento/scrapers/ruby'
 
 module Commento
   extend self

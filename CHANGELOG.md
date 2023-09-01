@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## Unreleased
+### Modified
+- scraping ruby files with many attributes per line
+
 ## [0.1.2] - 2023-08-16
 ### Added
 - recognizing gem's comments in project for getting columns data
