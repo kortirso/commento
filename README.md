@@ -42,10 +42,10 @@ end
 
 ## Generating reports
 
-You can generate different types of reports
+You can generate different types of reports (right now only html) with rake task
 
-```ruby
-Commento::Reports::Html.new.create_report
+```bash
+rake "commento:generate_report[html]"
 ```
 
 ## Usage

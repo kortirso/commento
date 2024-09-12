@@ -9,6 +9,7 @@ require 'commento/helpers'
 require 'commento/report'
 require 'commento/reports/html'
 require 'commento/scrapers/ruby'
+require 'commento/railtie' if defined?(Rails)
 
 module Commento
   extend self
