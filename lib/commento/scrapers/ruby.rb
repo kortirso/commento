@@ -9,6 +9,7 @@ module Commento
       # {
       #   'fantasy_sports.points' => [
       #     'app/services/some_service.rb:11'
+      #     'app/services/some_another_service.rb:12'
       #   ]
       # }
       # key - table_name.column_name
@@ -33,15 +34,15 @@ module Commento
       end
 
       # commento line looks like
-      # commento: fantasy_sports.points, fantasy_sports.statistics
+      # commento:fantasy_sports:points,statistics
       def iterate_filelines(lines, filename)
         lines.each.with_index(1) do |line, index|
           next unless COMMENTO_MATCH_REGEXP.match?(line)
 
-          fields = line.strip.split('# commento: ')[-1].split(',').map(&:strip)
-          fields.each do |field|
-            @data[field] ||= []
-            @data[field] << "#{filename}:#{index}"
+          table_name, columns = line.strip.split('# commento:')[-1].split(':').map(&:strip)
+          columns.split(',').each do |column|
+            @data["#{table_name}.#{column}"] ||= []
+            @data["#{table_name}.#{column}"] << "#{filename}:#{index}"
           end
         end
       end
