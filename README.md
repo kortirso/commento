@@ -34,12 +34,22 @@ Commento.configure do |config|
 end
 ```
 
-## Generating reports
+## Rake tasks
+
+### Generating reports
 
 You can generate different types of reports (right now only html) with rake task
 
 ```bash
 rake "commento:generate_report[html]"
+```
+
+### Health check
+
+You can check amount of missing comments for tables and columns with console report
+
+```bash
+rake commento:health
 ```
 
 ## Usage
