@@ -52,6 +52,8 @@ You can check amount of missing comments for tables and columns with console rep
 rails commento:health
 ```
 
+<img width="727" alt="Снимок экрана 2024-09-13 в 10 11 12" src="https://github.com/user-attachments/assets/f0b8fbf8-6a6a-4c7b-b6b6-2a0de6d19f45">
+
 ### Generating migration for adding comments to tables and columns
 
 You can generate migration with adding comments for table and columns
