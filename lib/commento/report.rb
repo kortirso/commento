@@ -32,7 +32,7 @@ module Commento
       columns.map do |column_data|
         full_column_name = "#{table_name}.#{column_data[:column_name]}"
         column_template
-          .gsub('%column_name%', full_column_name)
+          .gsub('%column_name%', column_data[:column_name])
           .gsub('%column_comment%', column_data[:column_comment].presence || '')
           .gsub('%data_placeholder%', data_placeholder(full_column_name))
       end.join
