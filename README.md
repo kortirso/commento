@@ -27,16 +27,10 @@ require 'commento/adapters/active_record'
 
 Commento.configure do |config|
   config.adapter = Commento::Adapters::ActiveRecord.new
-end
-```
-
-### Models
-
-Update your application model
-
-```ruby
-class ApplicationRecord < ActiveRecord::Base
-  include Commento::Helpers
+  config.include_folders = %w[app lib] # folder for searching commento comments
+  config.exclude_folders = ['app/assets'] # folder for excluding searching commento comments
+  config.skip_table_names = %w[ar_internal_metadata schema_migrations] # ignoring tables
+  config.skip_column_names = %w[id uuid created_at updated_at] # ignoring columns
 end
 ```
 
@@ -52,6 +46,16 @@ rake "commento:generate_report[html]"
 
 Commento provides helpers for models for setting and getting comments.
 
+### Models configuration
+
+Update your application model
+
+```ruby
+class ApplicationRecord < ActiveRecord::Base
+  include Commento::Helpers
+end
+```
+
 ### Set table's comment
 
 ```ruby
@@ -63,13 +67,13 @@ or reset comment by skiping value
 User.set_table_comment
 ```
 
-### Read table's column comment
+### Read table's comment
 
 ```ruby
-User.get_table_comment
+User.fetch_table_comment
 ```
 
-### Set table's column comment
+### Set column's comment
 
 ```ruby
 User.set_column_comment(:email, 'Required field for user authentication')
@@ -80,10 +84,10 @@ or reset comment by skiping value
 User.set_column_comment(:email)
 ```
 
-### Read table's column comment
+### Read column's comment
 
 ```ruby
-User.get_column_comment(:email)
+User.fetch_column_comment(:email)
 ```
 
 ## License

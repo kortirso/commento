@@ -47,7 +47,7 @@ module Commento
     end
 
     def database_comments
-      adapter.comments_for_database
+      adapter.fetch_comments_for_database
     end
 
     def main_template

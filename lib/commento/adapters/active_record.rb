@@ -23,7 +23,7 @@ module Commento
       end
 
       # Public: Returns comment for table.
-      def table_comment(table_name)
+      def fetch_table_comment(table_name)
         table_data = execute(tables_comments_sql).to_a.find { |data| data['table_name'] == table_name }
         table_data.present? ? table_data['obj_description'] : nil
       end
@@ -36,14 +36,14 @@ module Commento
       end
 
       # Public: Returns comment for table's column.
-      def column_comment(table_name, column_name)
+      def fetch_column_comment(table_name, column_name)
         sql = columns_comments_sql(table_name)
         column_data = execute(sql).to_a.find { |data| data['column_name'].to_sym == column_name }
         column_data.present? ? column_data['col_description'] : nil
       end
 
       # Public: Returns comments for tables and columns.
-      def comments_for_database
+      def fetch_comments_for_database
         execute(tables_comments_sql).to_a.filter_map do |table_data|
           next if configuration.skip_table_names.include?(table_data['table_name'])
 
