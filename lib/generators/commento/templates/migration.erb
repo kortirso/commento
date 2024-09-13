@@ -1,0 +1,7 @@
+class CommentoAddCommentsToTablesAndColumns < ActiveRecord::Migration<%= migration_version %>
+  def change
+    <%= tables_change_data %>
+
+    <%= columns_change_data %>
+  end
+end

@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - rake task for generating reports
 - rake task for health check with reporting to console
+- rails generator with migration for adding comments
 
 ## [0.1.3] - 2023-09-01
 ### Modified
